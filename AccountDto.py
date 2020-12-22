@@ -1,18 +1,14 @@
-from .Constants import CONSTANTS
-
-import json
-import requests
-
 class AccountDto():
-    def __init__(self, puuid, gameName=None, tagLine=None):
-        self.puuid = puuid
-        self.gameName = gameName
-        self.tagLine = tagLine
+    def __init__(self, accountDto):
+        self.puuid = accountDto.get('puuid')
+        self.gameName = accountDto.get('gameName', 'Game Name Does Not Exist')
+        self.tagLine = accountDto.get('tagLine', 'Tag Line Does Not Exist')
 
-    @classmethod
-    def GetAccountByPUUID(puuid):
-        url = CONSTANTS['account']['urls']['account-by-puuid']
-
-    @classmethod
-    def GetAccountByRiotID(gameName, tagLine):
-        pass
+    def __repr__(self):
+        return  'Game Name: {gameName}\n'\
+                'Tag Line: {tagLine}\n'\
+                'PUUID: {puuid}'.format(
+                    gameName=self.gameName,
+                    tagLine=self.tagLine,
+                    puuid=self.puuid
+                )

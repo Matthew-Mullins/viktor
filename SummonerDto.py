@@ -1,21 +1,22 @@
-from .Viktor import Viktor
-from .Constants import BASE_URL, CONSTANTS
-
-import requests
-
-def GetAccountBySummonerName(summonerName, region):
-    summoner_constant = CONSTANTS['summoner']
-    version = summoner_constant['version']
-    url = summoner_constant['urls']['summoner-by-name'].format(version=version, summonerName=summonerName)
-    r = requests.get(BASE_URL.format(region=region) + url, headers={"X-Riot-Token": Viktor.api_key})
-    result = r.json()
-    return result
-
 class SummonerDto():
     def __init__(self, summonerDto):
-        self.account_id = summonerDto['accountId']
-        self.id = summonerDto['id']
-        self.name = summonerDto['name']
-        self.profileIconId = summonerDto['profileIconId']
-        self.puuid = summonerDto['puuid']
-        self.revisionDate = summonerDto[]
+        self.id = summonerDto.get('id')
+        self.account_id = summonerDto.get('accountId')
+        self.puuid = summonerDto.get('puuid')
+        self.name = summonerDto.get('name')
+        self.profileIconId = summonerDto.get('profileIconId')
+        self.revisionDate = summonerDto.get('revisionDate')
+        self.summonerLevel = summonerDto.get('summonerLevel')
+
+    def __repr__(self):
+        return  'Summoner Name: {summonerName}\n'\
+                'Summoner Level: {summonerLevel}\n'\
+                'Summoner ID: {summonerID}\n'\
+                'Account ID: {accountID}\n'\
+                'PUUID: {puuid}'.format(
+                    summonerName=self.name,
+                    summonerLevel=self.summonerLevel,
+                    summonerID=self.id,
+                    accountID=self.account_id,
+                    puuid=self.puuid
+                )
