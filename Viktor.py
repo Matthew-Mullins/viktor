@@ -1,6 +1,7 @@
 from .Constants import *
 from .AccountDto import AccountDto
 from .ActiveShardDto import ActiveShardDto
+from .ChampionMasteryDto import ChampionMasteryDto
 from .SummonerDto import SummonerDto
 
 import requests
@@ -37,6 +38,31 @@ class Viktor():
         url = BASE_URL.format(region=region) + url_ext
         active_shard = ActiveShardDto(self.QueryAPI(url))
         return active_shard
+
+    def GetChampionMasteriesBySummonerID(self, summonerID, region):
+        champion_master_constant = CONSTANTS['champion-mastery']
+        version = champion_master_constant['version']
+        url_ext = champion_master_constant['urls']['champion-masteries-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
+        url = BASE_URL.format(region=region) + url_ext
+        result = self.QueryAPI(url)
+        cm_dto_list = set()
+        for champion_mastery_dto in result:
+            cm_dto_list.add(ChampionMasteryDto(champion_mastery_dto))
+        return cm_dto_list
+
+    def GetChampionMasteryBySummonerID(self, summonerID, championID, region):
+        champion_master_constant = CONSTANTS['champion-mastery']
+        version = champion_master_constant['version']
+        url_ext = champion_master_constant['urls']['champion-mastery-by-summoner-id-by-champion'].format(version=version, encryptedSummonerId=summonerID, championId=championID)
+        url = BASE_URL.format(region=region) + url_ext
+        return ChampionMasteryDto(self.QueryAPI(url))
+
+    def GetChampionMasteryScoreBySummonerID(self, summonerID, region):
+        champion_master_constant = CONSTANTS['champion-mastery']
+        version = champion_master_constant['version']
+        url_ext = champion_master_constant['urls']['mastery-score-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
+        url = BASE_URL.format(region=region) + url_ext
+        return self.QueryAPI(url)
 
     def GetSummonerBySummonerName(self, summonerName, region):
         summoner_constant = CONSTANTS['summoner']
