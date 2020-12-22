@@ -42,7 +42,7 @@ class Viktor():
         return active_shard
 
 # CHAMPION MASTERY
-    def GetChampionMasteriesBySummonerID(self, summonerID, region):
+    def GetLOLChampionMasteriesBySummonerID(self, summonerID, region):
         champion_master_constant = CONSTANTS['champion-mastery']
         version = champion_master_constant['version']
         url_ext = champion_master_constant['urls']['champion-masteries-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
@@ -53,14 +53,14 @@ class Viktor():
             cm_dto_list.add(ChampionMasteryDto(champion_mastery_dto))
         return cm_dto_list
 
-    def GetChampionMasteryBySummonerID(self, summonerID, championID, region):
+    def GetLOLChampionMasteryBySummonerID(self, summonerID, championID, region):
         champion_master_constant = CONSTANTS['champion-mastery']
         version = champion_master_constant['version']
         url_ext = champion_master_constant['urls']['champion-mastery-by-summoner-id-by-champion'].format(version=version, encryptedSummonerId=summonerID, championId=championID)
         url = BASE_URL.format(region=region) + url_ext
         return ChampionMasteryDto(self.QueryAPI(url))
 
-    def GetChampionMasteryScoreBySummonerID(self, summonerID, region):
+    def GetLOLChampionMasteryScoreBySummonerID(self, summonerID, region):
         champion_master_constant = CONSTANTS['champion-mastery']
         version = champion_master_constant['version']
         url_ext = champion_master_constant['urls']['mastery-score-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
@@ -68,7 +68,7 @@ class Viktor():
         return self.QueryAPI(url)
 
 # CHAMPION
-    def GetChampionRotations(self, region):
+    def GetLOLChampionRotations(self, region):
         champion_rotations_constant = CONSTANTS['champion-rotations']
         version = champion_rotations_constant['version']
         url_ext = champion_rotations_constant['urls']['champion-rotations'].format(version=version)
@@ -76,25 +76,91 @@ class Viktor():
         return ChampionInfo(self.QueryAPI(url))
 
 # CLASH
+    def GetLOLClashPlayersBySummonerID(self, summonerId, region):
+        pass
+
+    def GetLOLClashTeamByTeamID(self, teamId, region):
+        pass
+
+    def GetLOLClashTournaments(self, region):
+        pass
+
+    def GetLOLClashTournamentByTeamID(self, teamId, region):
+        pass
+
+    def GetLOLClashTournamentByTournamentID(self, tournamentId, region):
+        pass
 
 # LEAGUE EXP
+    def GetLOLEXPLeagueEntries(self, queue, tier, division, region):
+        pass
 
 # LEAGUE
+    def GetLOLChallengerLeagueByQueue(self, queue, region):
+        pass
+
+    def GetLOLLeaguesBySummonerID(self, summonerId, region):
+        pass
+
+    def GetLOLLeagueEntries(self, queue, tier, division):
+        pass
+
+    def GetLOLGrandmasterLeagueByQueue(self, queue, region):
+        pass
+
+    def GetLOLLeagueByLeagueID(self, leagueId, region):
+        pass
+
+    def GetLOLMasterLeagueByQueue(self, queue, region):
+        pass
 
 # LOL STATUS
+    def GetLOLStatus(self, region):
+        pass
 
 # LOR MATCH
+    def GetLORMatchesByPUUID(self, puuid, region):
+        pass
+
+    def GetLORMatch(self, matchId, region):
+        pass
 
 # LOR RANKED
+    def GetLORMasterTier(self, region):
+        pass
 
 # LOR STATUS
+    def GetLORStatus(self, region):
+        pass
 
 # MATCH
+    def GetLOLMatch(self, matchId, region):
+        pass
+
+    def GetLOLMatchlistFiltered(self, accountId, **kwargs):
+        pass
+
+    def GetLOLMatchTimeline(self, matchId, region):
+        pass
+
+    def GetLOLMatchesByTournamentCode(self, tournamentCode, region):
+        pass
+
+    def GetLOLMatchByTournamentCode(self, matchId, tournamentCode, region):
+        pass
 
 # SPECTATOR
+    def GetLOLGameInfo(self, summonerId, region):
+        pass
+
+    def GetLOLFeaturedGames(self, region):
+        pass
 
 # SUMMONER
-    def GetSummonerBySummonerName(self, summonerName, region):
+    def GetLOLSummonerByAccountID(self, accountId, region):
+        pass
+    
+    def GetLOLSummonerBySummonerName(self, summonerName, region):
         summoner_constant = CONSTANTS['summoner']
         version = summoner_constant['version']
         url_ext = summoner_constant['urls']['summoner-by-name'].format(version=version, summonerName=summonerName)
@@ -102,21 +168,73 @@ class Viktor():
         summoner = SummonerDto(self.QueryAPI(url))
         return summoner
 
+    def GetLOLSummonerByPUUID(self, puuid, region):
+        pass
+
+    def GetLOLSummonerBySummonerID(self, summonerId, region):
+        pass
+
 # TFT LEAGUE
+    def GetTFTChallenger(self, region):
+        pass
+
+    def GetTFTLeaguesBySummonerID(self, summonerId, region):
+        pass
+
+    def GetTFTLeague(self, tier, division, region):
+        pass
+
+    def GetTFTGrandmaster(self, region):
+        pass
+
+    def GetTFTLeagueByID(self, leagueId, region):
+        pass
+
+    def GetTFTMaster(self, region):
+        pass
 
 # TFT MATCH
+    def GetTFTMatchIDsByPUUID(self, puuid, region):
+        pass
+
+    def GetTFTMatchByID(self, matchId, region):
+        pass
 
 # TFT SUMMONER
+    def GetTFTSummonerByAccountID(self, accountId, region):
+        pass
+
+    def GetTFTSummonerBySummonerName(self, summonerName, region):
+        pass
+
+    def GetTFTSummonerByPUUID(self, puuid, region):
+        pass
+
+    def GetTFTSummonerBySummonerID(self, summonerId, region):
+        pass
 
 # THIRD PARTY CODE
+    def GetThirdPartyCodeBySummonerID(self, summonerId, region):
+        pass
 
 # TOURNAMENT STUB
 
 # TOURNAMENT
 
 # VAL CONTENT
+    def GetVALContentByLocale(self, region, **kwargs):
+        pass
 
 # VAL MATCH
+    def GetVALMatchByID(self, matchId, region):
+        pass
+
+    def GetVALMatchlistByPUUID(self, puuid, region):
+        pass
+
+    def GetVALRecentMatchesByQueue(self, queue, region):
+        pass
 
 # VAL STATUS
-
+    def GetVALStatus(self, region):
+        pass
