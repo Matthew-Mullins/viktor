@@ -1,3 +1,4 @@
+BASE_URL = 'https://{region}.api.riotgames.com'
 CONSTANTS = {
     'account': {
         'version': 'v1',
@@ -103,10 +104,10 @@ CONSTANTS = {
         }
     },
     'summoner': {
-        'version': '',
-        'game': '',
+        'version': 'v4',
+        'game': 'League of Legends',
         'urls': {
-            
+            'summoner-by-name': '/lol/summoner/{version}/summoners/by-name/{summonerName}'
         }
     },
     'tft-league': {
