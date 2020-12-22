@@ -98,7 +98,7 @@ CONSTANTS = {
         'version': 'v4',
         'game': 'League of Legends',
         'urls': {
-            'current-game-by-summoner-id', '/lol/spectator/{version}}/active-games/by-summoner/{encryptedSummonerId}':
+            'current-game-by-summoner-id': '/lol/spectator/{version}}/active-games/by-summoner/{encryptedSummonerId}',
             'featured-games': '/lol/spectator/{version}/featured-games'
         }
     },
@@ -150,7 +150,7 @@ CONSTANTS = {
         'urls': {
             
         }
-    }
+    },
     'val-content': {
         'version': '',
         'game': '',
