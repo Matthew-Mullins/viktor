@@ -2,6 +2,7 @@ from .Constants import *
 from .AccountDto import AccountDto
 from .ActiveShardDto import ActiveShardDto
 from .ChampionMasteryDto import ChampionMasteryDto
+from .ChampionInfo import ChampionInfo
 from .SummonerDto import SummonerDto
 
 import requests
@@ -15,6 +16,7 @@ class Viktor():
         r = requests.get(url, headers={"X-Riot-Token": self.api_key})
         return r.json()
 
+# ACCOUNT
     def GetAccountByPUUID(self, puuid, region):
         account_constant = CONSTANTS['account']
         version = account_constant['version']
@@ -39,6 +41,7 @@ class Viktor():
         active_shard = ActiveShardDto(self.QueryAPI(url))
         return active_shard
 
+# CHAMPION MASTERY
     def GetChampionMasteriesBySummonerID(self, summonerID, region):
         champion_master_constant = CONSTANTS['champion-mastery']
         version = champion_master_constant['version']
@@ -64,6 +67,33 @@ class Viktor():
         url = BASE_URL.format(region=region) + url_ext
         return self.QueryAPI(url)
 
+# CHAMPION
+    def GetChampionRotations(self, region):
+        champion_rotations_constant = CONSTANTS['champion-rotations']
+        version = champion_rotations_constant['version']
+        url_ext = champion_rotations_constant['urls']['champion-rotations'].format(version=version)
+        url = BASE_URL.format(region=region) + url_ext
+        return ChampionInfo(self.QueryAPI(url))
+
+# CLASH
+
+# LEAGUE EXP
+
+# LEAGUE
+
+# LOL STATUS
+
+# LOR MATCH
+
+# LOR RANKED
+
+# LOR STATUS
+
+# MATCH
+
+# SPECTATOR
+
+# SUMMONER
     def GetSummonerBySummonerName(self, summonerName, region):
         summoner_constant = CONSTANTS['summoner']
         version = summoner_constant['version']
@@ -71,3 +101,22 @@ class Viktor():
         url = BASE_URL.format(region=region) + url_ext
         summoner = SummonerDto(self.QueryAPI(url))
         return summoner
+
+# TFT LEAGUE
+
+# TFT MATCH
+
+# TFT SUMMONER
+
+# THIRD PARTY CODE
+
+# TOURNAMENT STUB
+
+# TOURNAMENT
+
+# VAL CONTENT
+
+# VAL MATCH
+
+# VAL STATUS
+
