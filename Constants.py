@@ -107,70 +107,92 @@ CONSTANTS = {
         'version': 'v4',
         'game': 'League of Legends',
         'urls': {
-            'summoner-by-name': '/lol/summoner/{version}/summoners/by-name/{summonerName}'
+            'summoner-by-account-id': '/lol/summoner/{version}/summoners/by-account/{encryptedAccountId}',
+            'summoner-by-summoner-name': '/lol/summoner/{version}/summoners/by-name/{summonerName}',
+            'summoner-by-puuid': '/lol/summoner/{version}/summoners/by-puuid/{encryptedPUUID}',
+            'summoner-by-summoner-id': '/lol/summoner/{version}/summoners/{encryptedSummonerId}'
         }
     },
     'tft-league': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Teamfight Tactics',
         'urls': {
-            
+            'challenger-league': '/tft/league/{version}/challenger',
+            'leagues-by-summoner-id': '/tft/league/{version}/entries/by-summoner/{encryptedSummonerId}',
+            'league-entries': '/tft/league/{version}/entries/{tier}/{division}',
+            'grandmaster-league': '/tft/league/{version}/grandmaster',
+            'league-by-id': '/tft/league/{version}/leagues/{leagueId}',
+            'master-league': '/tft/league/{version}/master'
         }
     },
     'tft-match': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Teamfight Tactics',
         'urls': {
-            
+            'matches-by-puuid': '/tft/match/{version}/matches/by-puuid/{puuid}/ids',
+            'match-by-match-id': '/tft/match/{version}/matches/{matchId}'
         }
     },
     'tft-summoner': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Teamfight Tactics',
         'urls': {
-            
+            'summoner-by-account-id': '/tft/summoner/{version}/summoners/by-account/{encryptedAccountId}',
+            'summoner-by-summoner-name': '/tft/summoner/{version}/summoners/by-name/{summonerName}',
+            'summoner-by-puuid': '/tft/summoner/{version}/summoners/by-puuid/{encryptedPUUID}',
+            'summoner-by-summonerid': '/tft/summoner/{version}/summoners/{encryptedSummonerId}'
         }
     },
     'third-party-code': {
-        'version': '',
-        'game': '',
+        'version': 'v4',
+        'game': 'League of Legends',
         'urls': {
-            
+            'by-summoner-id': '/lol/platform/{version}/third-party-code/by-summoner/{encryptedSummonerId}'
         }
     },
     'tournament-stub': {
-        'version': '',
-        'game': '',
+        'version': 'v4',
+        'game': 'League of Legends',
         'urls': {
-            
+            'create-tournament-code': '/lol/tournament-stub/{version}/codes',
+            'lobby-events-by-code': '/lol/tournament-stub/{version}/lobby-events/by-code/{tournamentCode}',
+            'create-tournament-provider': '/lol/tournament-stub/{version}/providers',
+            'create-tournament': '/lol/tournament-stub/{version}/tournaments'
         }
     },
     'tournament': {
-        'version': '',
-        'game': '',
+        'version': 'v4',
+        'game': 'League of Legends',
         'urls': {
-            
+            'create-tournament-code': '/lol/tournament/{version}/codes',
+            'tournament-dto-by-code': '/lol/tournament/{version}/codes/{tournamentCode}',
+            'update-tournament-by-code': '/lol/tournament/{version}/codes/{tournamentCode}',
+            'lobby-events-by-code': '/lol/tournament/{version}/lobby-events/by-code/{tournamentCode}',
+            'create-tournament-provider': '/lol/tournament/{version}/providers',
+            'create-tournament': '/lol/tournament/{version}/tournaments'
         }
     },
     'val-content': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Valorant',
         'urls': {
-            
+            'content-by-locale': '/val/content/{version}/contents'
         }
     },
     'val-match': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Valorant',
         'urls': {
-            
+            'match-by-id': '/val/match/{version}/matches/{matchId}',
+            'matchlist-by-puuid': '/val/match/{version}/matchlists/by-puuid/{puuid}',
+            'recent-matches-by-queue': '/val/match/{version}/recent-matches/by-queue/{queue}'
         }
     },
     'val-status': {
-        'version': '',
-        'game': '',
+        'version': 'v1',
+        'game': 'Valorant',
         'urls': {
-            
+            'status': '/val/status/v1/platform-data'
         }
     }
 }

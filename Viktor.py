@@ -11,69 +11,42 @@ class Viktor():
     def __init__(self, api_key):
         self.api_key = api_key
 
-    def QueryAPI(self, url):
-        print(url)
-        r = requests.get(url, headers={"X-Riot-Token": self.api_key})
+    def QueryAPI(self, api_name, api_ext_name, region, **kwargs):
+        api_constant = CONSTANTS[api_name]
+        version = api_constant['version']
+        url_ext = api_constant['urls'][api_ext_name].format(version=version, **kwargs)
+        url = BASE_URL.format(region=region) + url_ext
+        r = requests.get(url, headers={'X-Riot-Token': self.api_key})
+        print(r.status_code)
         return r.json()
 
 # ACCOUNT
     def GetAccountByPUUID(self, puuid, region):
-        account_constant = CONSTANTS['account']
-        version = account_constant['version']
-        url_ext = account_constant['urls']['account-by-puuid'].format(version=version, puuid=puuid)
-        url = BASE_URL.format(region=region) + url_ext
-        account = AccountDto(self.QueryAPI(url))
-        return account
+        return AccountDto(self.QueryAPI('account', 'account-by-puuid', region, puuid=puuid))
 
     def GetAccountByRiotID(self, gameName, tagLine, region):
-        account_constant = CONSTANTS['account']
-        version = account_constant['version']
-        url_ext = account_constant['urls']['account-by-riot-id'].format(version=version, gameName=gameName, tagLine=tagLine)
-        url = BASE_URL.format(region=region) + url_ext
-        account = AccountDto(self.QueryAPI(url))
-        return account
+        return AccountDto(self.QueryAPI('account', 'account-by-riot-id', region, gameName=gameName, tagLine=tagLine))
 
     def GetActiveShardByPUUID(self, game, puuid, region):
-        account_constant = CONSTANTS['account']
-        version = account_constant['version']
-        url_ext = account_constant['urls']['active-shard-by-game-by-puuid'].format(version=version, game=game, puuid=puuid)
-        url = BASE_URL.format(region=region) + url_ext
-        active_shard = ActiveShardDto(self.QueryAPI(url))
-        return active_shard
+        return ActiveShardDto(self.QueryAPI('account', 'active-shard-by-game-by-puuid', region, game=game, puuid=puuid))
 
 # CHAMPION MASTERY
-    def GetLOLChampionMasteriesBySummonerID(self, summonerID, region):
-        champion_master_constant = CONSTANTS['champion-mastery']
-        version = champion_master_constant['version']
-        url_ext = champion_master_constant['urls']['champion-masteries-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
-        url = BASE_URL.format(region=region) + url_ext
-        result = self.QueryAPI(url)
+    def GetLOLChampionMasteriesBySummonerID(self, summonerId, region):
         cm_dto_list = set()
-        for champion_mastery_dto in result:
+        r = self.QueryAPI('champion-mastery', 'champion-masteries-by-summoner-id', region, encryptedSummonerId=summonerId)
+        for champion_mastery_dto in r:
             cm_dto_list.add(ChampionMasteryDto(champion_mastery_dto))
         return cm_dto_list
 
-    def GetLOLChampionMasteryBySummonerID(self, summonerID, championID, region):
-        champion_master_constant = CONSTANTS['champion-mastery']
-        version = champion_master_constant['version']
-        url_ext = champion_master_constant['urls']['champion-mastery-by-summoner-id-by-champion'].format(version=version, encryptedSummonerId=summonerID, championId=championID)
-        url = BASE_URL.format(region=region) + url_ext
-        return ChampionMasteryDto(self.QueryAPI(url))
+    def GetLOLChampionMasteryBySummonerID(self, summonerId, championId, region):
+        return ChampionMasteryDto(self.QueryAPI('champion-mastery', 'champion-mastery-by-summoner-id-by-champion', region, encryptedSummonerId=summonerId, championId=championId))
 
-    def GetLOLChampionMasteryScoreBySummonerID(self, summonerID, region):
-        champion_master_constant = CONSTANTS['champion-mastery']
-        version = champion_master_constant['version']
-        url_ext = champion_master_constant['urls']['mastery-score-by-summoner-id'].format(version=version, encryptedSummonerId=summonerID)
-        url = BASE_URL.format(region=region) + url_ext
-        return self.QueryAPI(url)
+    def GetLOLChampionMasteryScoreBySummonerID(self, summonerId, region):
+        return self.QueryAPI('champion-mastery', 'mastery-score-by-summoner-id', region, encryptedSummonerId=summonerId)
 
 # CHAMPION
     def GetLOLChampionRotations(self, region):
-        champion_rotations_constant = CONSTANTS['champion-rotations']
-        version = champion_rotations_constant['version']
-        url_ext = champion_rotations_constant['urls']['champion-rotations'].format(version=version)
-        url = BASE_URL.format(region=region) + url_ext
-        return ChampionInfo(self.QueryAPI(url))
+        return self.QueryAPI('champion-rotations', 'champion-rotations', region)
 
 # CLASH
     def GetLOLClashPlayersBySummonerID(self, summonerId, region):
@@ -158,21 +131,16 @@ class Viktor():
 
 # SUMMONER
     def GetLOLSummonerByAccountID(self, accountId, region):
-        pass
+        return SummonerDto(self.QueryAPI('summoner', 'summoner-by-account-id', region, encryptedAccountId=accountId))
     
     def GetLOLSummonerBySummonerName(self, summonerName, region):
-        summoner_constant = CONSTANTS['summoner']
-        version = summoner_constant['version']
-        url_ext = summoner_constant['urls']['summoner-by-name'].format(version=version, summonerName=summonerName)
-        url = BASE_URL.format(region=region) + url_ext
-        summoner = SummonerDto(self.QueryAPI(url))
-        return summoner
+        return SummonerDto(self.QueryAPI('summoner', 'summoner-by-summoner-name', region, summonerName=summonerName))
 
     def GetLOLSummonerByPUUID(self, puuid, region):
-        pass
+        return SummonerDto(self.QueryAPI('summoner', 'summoner-by-puuid', region, puuid=puuid))
 
     def GetLOLSummonerBySummonerID(self, summonerId, region):
-        pass
+        return SummonerDto(self.QueryAPI('summoner', 'summoner-by-summoner-id', region, encryptedSummonerId=summonerId))
 
 # TFT LEAGUE
     def GetTFTChallenger(self, region):
