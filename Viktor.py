@@ -32,10 +32,10 @@ class Viktor():
 
 # CHAMPION MASTERY
     def GetLOLChampionMasteriesBySummonerID(self, summonerId, region):
-        cm_dto_list = set()
+        cm_dto_list = []
         r = self.QueryAPI('champion-mastery', 'champion-masteries-by-summoner-id', region, encryptedSummonerId=summonerId)
         for champion_mastery_dto in r:
-            cm_dto_list.add(ChampionMasteryDto(champion_mastery_dto))
+            cm_dto_list.append(ChampionMasteryDto(champion_mastery_dto))
         return cm_dto_list
 
     def GetLOLChampionMasteryBySummonerID(self, summonerId, championId, region):
@@ -108,10 +108,10 @@ class Viktor():
 
 # MATCH
     def GetLOLMatch(self, matchId, region):
-        pass
+        return self.QueryAPI('match', 'match-by-id', region, matchId=matchId)
 
-    def GetLOLMatchlistFiltered(self, accountId, **kwargs):
-        pass
+    def GetLOLMatchlistFiltered(self, accountId, region, **kwargs):
+        return self.QueryAPI('match', 'matchlist-filtered', region, encryptedAccountId=accountId)
 
     def GetLOLMatchTimeline(self, matchId, region):
         pass
